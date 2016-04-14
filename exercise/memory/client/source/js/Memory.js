@@ -1,14 +1,14 @@
 module.exports = function(rows, cols, container) {
-
+  var amountOfTries = 0;
   var a;
   var tiles = [];
   var turn1 = "";
-  var turn2;
   tiles = getPicArray(rows,cols);
 
   container = document.querySelector("#memoryContainer");
   var template = document.querySelectorAll("#memoryContainer template")[0].content.firstElementChild;
-
+  var scoreNode = document.querySelector("#score");
+  console.log(scoreNode);
 tiles.forEach(function(tile, index) {
 
     a = document.importNode(template, true);
@@ -30,10 +30,12 @@ function turnBrick(tile, index) {
 
   this.querySelector("img").src ="image/"+tile+".png";
   var self = this.querySelector("img");
+  amountOfTries += 1;
+  scoreNode.textContent = amountOfTries;
 
   if (turn1 === "") {
     turn1 = self;
-  } else {
+  } else if(self !== turn1){
     if (self.src === turn1.src) {
       console.log("wopppy");
       turn1 = "";
