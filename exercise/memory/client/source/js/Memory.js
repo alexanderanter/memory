@@ -6,15 +6,26 @@ module.exports = function(rows, cols, container) {
   tiles = getPicArray(rows,cols);
 
   container = document.querySelector("#memoryContainer");
+  var template = document.querySelectorAll("#memoryContainer template")[0].content.firstElementChild;
 
   for(i = 0; i < rows*cols; i++) {
-    img = document.createElement("img");
-    img.setAttribute("src", "image/0.png");
+
+    img = document.importNode(template, true);
+
     container.appendChild(img);
+
+    addClick(i);
 
     if((i+1) % cols === 0) {
       container.appendChild(document.createElement("br"));
     }
+
+  }
+
+  function addClick(index) {
+    img.addEventListener("click", function(){
+      console.log(index);
+    });
   }
 
   function getPicArray(rows, cols) {
