@@ -1,32 +1,53 @@
 module.exports = function(rows, cols, container) {
 
-  var i;
-  var img;
+  var a;
   var tiles = [];
+  var turn1 = "";
+  var turn2;
   tiles = getPicArray(rows,cols);
 
   container = document.querySelector("#memoryContainer");
   var template = document.querySelectorAll("#memoryContainer template")[0].content.firstElementChild;
 
-  for(i = 0; i < rows*cols; i++) {
+tiles.forEach(function(tile, index) {
 
-    img = document.importNode(template, true);
+    a = document.importNode(template, true);
 
-    container.appendChild(img);
+    container.appendChild(a);
 
-    addClick(i);
+    a.addEventListener("click", function(){
+      turnBrick.call(this,tile,index);
+    });
 
-    if((i+1) % cols === 0) {
+    if((index+1) % cols === 0) {
       container.appendChild(document.createElement("br"));
     }
 
-  }
+  });
 
-  function addClick(index) {
-    img.addEventListener("click", function(){
-      console.log(index);
-    });
+
+function turnBrick(tile, index) {
+
+  this.querySelector("img").src ="image/"+tile+".png";
+  var self = this.querySelector("img");
+
+  if (turn1 === "") {
+    turn1 = self;
+  } else {
+    if (self.src === turn1.src) {
+      console.log("wopppy");
+      turn1 = "";
+    } else {
+
+      setTimeout(function() {
+        turn1.src ="image/0.png";
+        self.src ="image/0.png";
+        turn1 = "";
+      }, 1000);
+
+    }
   }
+}
 
   function getPicArray(rows, cols) {
 
