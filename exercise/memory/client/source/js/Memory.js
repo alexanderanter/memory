@@ -42,11 +42,10 @@ function turnBrick(tile, index, img) {
     turn1 = self;
   } else if(self !== turn1){
     if (self.src === turn1.src) {
-      console.log("wopppy");
       turn1 = "";
       pairs += 1;
       if(pairs === (cols*rows)/2){
-        console.log("WOPP");
+        console.log("finished the game!");
       }
     } else {
 
